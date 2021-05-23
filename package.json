@@ -1,5 +1,5 @@
 {
-    "name": "Socket PelonVende",
+    "name": "SocketPelonVende",
     "version": "0.0.1",
     "description": "Socket para procesar la sesiones y cierres de caja",
     "main": "server.js",
