@@ -1,9 +1,12 @@
 const { io } = require('../server');
 const { Usuarios } = require('../classes/usuarios');
 const rp = require('request-promise');
+const axios = require('axios');
 
 const usuarios = new Usuarios();
 let procesarCola = false;
+let peticion = false;
+procesar();
 io.on('connection', (client) => {
     client.emit('new:connection', {});
     client.on('new:connection', (data, callback) => {
@@ -38,23 +41,28 @@ io.on('connection', (client) => {
 function procesar() {
     procesarCola = true;
     setTimeout(() => {
-        const options = {
-            uri: process.env.URL_API,
-            method: "POST",
-            json: true
-        };
-        rp(options).then((jsonresponse) => {
-            console.log(jsonresponse);
-            if (jsonresponse.conteo > 0) {
-                procesar();
-            } else {
-                procesarCola = false;
-            }
-            return;
-        }).catch((err) => {
-            console.log('Ocurrio un error:', err);
-            procesarCola = false;
+        if (!peticion) {
+            peticion = true;
+            let instance = axios.create({
+                baseURL: process.env.URL_API
+            });
 
-        });
+            return instance.post().then((resp) => {
+                if (resp.data.conteo > 0) {
+                    procesar();
+                } else {
+                    procesarCola = false;
+                }
+                console.log(resp.data);
+                peticion = false;
+                return true;
+            }).catch((err) => {
+                console.log('Error => ', err);
+                procesarCola = false;
+                peticion = false;
+                return false;
+
+            });
+        }
     }, 1500);
 }
