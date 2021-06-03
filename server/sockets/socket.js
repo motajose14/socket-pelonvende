@@ -48,21 +48,22 @@ function procesar() {
             });
 
             return instance.post().then((resp) => {
-                peticion = false;
                 if (resp.data.conteo > 0) {
                     procesar();
                 } else {
                     procesarCola = false;
                 }
+                peticion = false;
                 console.log(resp.data);
                 return true;
             }).catch((err) => {
                 console.log('Error => ', err);
                 procesarCola = false;
                 peticion = false;
+                procesar();
                 return false;
 
             });
         }
-    }, 1000);
+    }, 1500);
 }
