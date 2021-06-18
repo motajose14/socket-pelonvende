@@ -12,7 +12,6 @@ io.on('connection', (client) => {
     client.on('new:connection', (data, callback) => {
         usuarios.agregarUsuario(client.id, data.user);
         client.join(data.user);
-
         callback(data);
     });
 
