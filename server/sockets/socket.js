@@ -29,7 +29,7 @@ io.on('connection', (client) => {
 
     client.on('new:procesar_cola', (data, callback) => {
         if (!procesarCola) {
-            funcion.procesar('Socket');
+            funcion.procesar();
             callback();
         }
     });
