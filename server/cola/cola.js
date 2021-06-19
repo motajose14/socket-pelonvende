@@ -24,7 +24,7 @@ function procesar() {
                 console.log(resp.data);
                 return true;
             }).catch((err) => {
-                console.log('Error => ', err);
+                console.log('Error => ', err.code);
                 procesarCola = false;
                 peticion = false;
                 procesar();

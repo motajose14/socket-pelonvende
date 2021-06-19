@@ -17,7 +17,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 let url_api;
 
 if (process.env.NODE_ENV === 'dev') {
-    url_api = 'http://pelonvende.test/api/runQueue';
+    url_api = 'https://sys.pelonvende.com/api/runQueue';
 } else {
     url_api = 'https://sys.pelonvende.com/api/runQueue';
 }
