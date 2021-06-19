@@ -4,7 +4,7 @@ const axios = require('axios');
 const funcion = require('../cola/cola');
 
 const usuarios = new Usuarios();
-funcion.procesar('Socket');
+funcion.procesar();
 io.on('connection', (client) => {
     client.emit('new:connection', {});
     client.on('new:connection', (data, callback) => {
