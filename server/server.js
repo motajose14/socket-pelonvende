@@ -12,6 +12,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); */
 
+const route = require('./routes/routes');
 
 let server = http.createServer(app);
 
@@ -20,7 +21,7 @@ const port = process.env.PORT;
 // IO = esta es la comunicacion del backend
 module.exports.io = socketIO(server);
 require('./sockets/socket');
-
+app.use('/', route);
 server.listen(port, (err) => {
 
     if (err) throw new Error(err);

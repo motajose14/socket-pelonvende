@@ -1,6 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const funcion = require('../cola/cola');
+const router = express();
 
-router.get('/reiniciar', (req, res) => {
+/* router.get('/reiniciar', (req, res, next) => {
+    funcion.procesar('rutas');
     return res.status(200).json({ ok: true });
-});
+}); */
+
+module.exports = router;

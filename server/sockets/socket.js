@@ -1,12 +1,10 @@
 const { io } = require('../server');
 const { Usuarios } = require('../classes/usuarios');
-const rp = require('request-promise');
 const axios = require('axios');
+const funcion = require('../cola/cola');
 
 const usuarios = new Usuarios();
-let procesarCola = false;
-let peticion = false;
-procesar();
+funcion.procesar('Socket');
 io.on('connection', (client) => {
     client.emit('new:connection', {});
     client.on('new:connection', (data, callback) => {
@@ -31,13 +29,13 @@ io.on('connection', (client) => {
 
     client.on('new:procesar_cola', (data, callback) => {
         if (!procesarCola) {
-            procesar();
+            funcion.procesar('Socket');
             callback();
         }
     });
 });
 
-function procesar() {
+/* function procesar() {
     procesarCola = true;
     setTimeout(() => {
         if (!peticion) {
@@ -66,3 +64,7 @@ function procesar() {
         }
     }, 1500);
 }
+
+const iniciarCola = procesar();
+
+module.exports.procesar = iniciarCola; */
