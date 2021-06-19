@@ -5,7 +5,7 @@ let peticion = false;
 
 function funcion() {};
 
-funcion.prototype.procesar = function() {
+function procesar() {
     procesarCola = true;
     setTimeout(() => {
         if (!peticion) {
@@ -33,6 +33,10 @@ funcion.prototype.procesar = function() {
             });
         }
     }, 1500);
+}
+
+funcion.prototype.procesar = function() {
+    procesar();
 };
 
 module.exports = new funcion();
