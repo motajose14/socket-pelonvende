@@ -2,11 +2,13 @@ const axios = require('axios');
 
 let procesarCola = false;
 let peticion = false;
+let time = null;
 
 function funcion() {};
 
 function procesar() {
     procesarCola = true;
+    clearTimeout(time);
     setTimeout(() => {
         if (!peticion) {
             peticion = true;
@@ -18,13 +20,14 @@ function procesar() {
                 if (resp.data.conteo > 0) {
                     procesar();
                 } else {
+                    time = setTimeout(() => {
+                        procesar();
+                    }, 120000);
                     procesarCola = false;
                 }
                 peticion = false;
-                console.log(resp.data);
                 return true;
             }).catch((err) => {
-                console.log('Error => ', err.code);
                 procesarCola = false;
                 peticion = false;
                 procesar();

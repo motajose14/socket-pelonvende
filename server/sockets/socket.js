@@ -28,43 +28,7 @@ io.on('connection', (client) => {
     });
 
     client.on('new:procesar_cola', (data, callback) => {
-        if (!procesarCola) {
-            funcion.procesar();
-            callback();
-        }
+        funcion.procesar();
+        callback();
     });
 });
-
-/* function procesar() {
-    procesarCola = true;
-    setTimeout(() => {
-        if (!peticion) {
-            peticion = true;
-            let instance = axios.create({
-                baseURL: process.env.URL_API
-            });
-
-            return instance.post().then((resp) => {
-                if (resp.data.conteo > 0) {
-                    procesar();
-                } else {
-                    procesarCola = false;
-                }
-                peticion = false;
-                console.log(resp.data);
-                return true;
-            }).catch((err) => {
-                console.log('Error => ', err);
-                procesarCola = false;
-                peticion = false;
-                procesar();
-                return false;
-
-            });
-        }
-    }, 1500);
-}
-
-const iniciarCola = procesar();
-
-module.exports.procesar = iniciarCola; */
